@@ -1,67 +1,29 @@
-# Justyn Green: Accelerated AI, Cloud Solutions & Immersive Media Hub
+# Justyn Green: Technical Cloud Insights & Knowledge Hub
 
-> A highly optimized, advanced web platform engineered on Git-based Infrastructure as Code (IaC) principles to deliver seamless Web3 integration, interactive media streaming, and accelerated technical solutions.
-
----
-
-## 🏗️ Technical Architecture
-
-This platform uses a highly decoupled, ultra-fast static architecture optimized for edge delivery and maximum security:
-
-1. **Source Management**: Fully version-controlled via GitHub Repository.
-2. **Git-based IaC Workflows**: Feature branch strategies (`feature/*`) ensure isolated development, with staging verified via Pull Requests prior to production deployment on `main`.
-3. **Edge Distribution**: Automatically built and deployed securely utilizing GitHub Pages.
-4. **DNS & Optimization**: Powered by Cloudflare DNS for custom domain management, automated edge caching, and robust DDoS protection.
-5. **Security**: Absolute HTTPS enforcement across all endpoints for uncompromised data transit.
+> A highly optimized platform functioning as an accelerated wiki and content distribution space. Focused entirely on making advanced Cloud and AI patterns easy to write in pure Markdown and instantly distribute with rich media elements.
 
 ---
 
-## ⚡ Key Platform Features
+## 🛠️ Project Objective
 
-### 1. Highly Premium UI / UX Design System
-* **Curated Design Aesthetics**: Uses custom CSS properties featuring vibrant `hsl` neon accents (purple & cyan), ultra-deep obsidian backdrops, and glassmorphism surface cards with dynamic backdrop-blur interactions.
-* **Ambient Energy Flow**: Includes custom background energy orb animations to create depth without sacrificing visual performance.
+This repository leverages a simplified static web setup designed entirely for rapid multi-media blogging, technology observation, and interactive visualizations:
 
-### 2. Web3 Interactive Integrations
-* **Wallet Authentication Simulation**: Interactive mock state triggering connection feedback to simulate token-gated authorization access for premium media streams.
-
-### 3. Dynamic Media Streaming (Cinema Watcher)
-* **Interactive Hub**: Integrated dual-pane media switching that handles low-latency simulated digital content drops.
-* **Micro-Animations**: Features responsive interaction states triggered immediately upon UI hover and digital asset engagement.
+1. **Zero-Build Content Strategy**: Add custom visual/written content easily in standard Git commits using Markdown or pure semantic HTML.
+2. **Visual Knowledge Delivery**: Seamlessly host and share step-by-step guides with embedded rich video walkthroughs and architecture graphics.
+3. **Integrated Edge Access**: Distributed cleanly with GitHub pages routing through robust Cloudflare domains.
 
 ---
 
-## 🚀 Local Development
+## ⚡ Operational Pipeline
 
-Because the framework is completely self-contained using modern web standards, no heavy node dependencies or build systems are required for initial viewing.
-
-### Run Locally
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/GreenJustyn/greenjustyn.github.io.git
-   ```
-2. Switch to the feature branch (or use main for production):
-   ```bash
-   git checkout feature/rich-media-web3
-   ```
-3. Launch any local web server. For instance, using Python:
-   ```bash
-   python3 -m http.server 8000
-   ```
-4. Visit `http://localhost:8000` in your modern browser.
-
----
-
-## 🔄 Deployment Lifecycle
+1. Push raw markdown updates, images, or videos directly into the Git staging state via an editor or visual environment.
+2. Native `GitHub Pages` actions detect incremental changes to structure and bundle outputs instantly on pure static HTML standards without server build friction.
 
 ```mermaid
 graph LR
-    A[Feature Branch] -->|git commit| B[Pull Request]
-    B -->|Code Review| C[Merge to Main]
-    C -->|Automated Build| D[GitHub Pages / Edge]
-    D -->|Cloudflare DNS| E[Production URL]
+    A[Write Content/Markdown] -->|git push| B[GitHub Repo Updates]
+    B -->|Auto Static Sync| C[GitHub Pages Edge]
+    C -->|Cloudflare Optimized| D[Consumer Access]
 ```
 
-1. **Develop**: Perform all updates on `feature/*` branches to ensure isolation.
-2. **Review**: Open a standard Pull Request (PR) against `main`.
-3. **Deploy**: Once merged to `main`, GitHub Pages automatically triggers an edge deployment.
+Feel completely free to update documentation items inside standard branches instantly.
