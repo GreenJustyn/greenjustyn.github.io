@@ -1,0 +1,252 @@
+[
+    {
+        "title": "Governance-as-Code: Building the Agentic Command Center",
+        "excerpt": "Tracking agent drift, security, and access control in real-time programmatic monitoring.",
+        "publishDate": "2026-05-01",
+        "category": "AI Engineering",
+        "tags": "['Governance as Code', 'Security', 'MLOps', 'Agents']",
+        "url": "articles/governance-as-code.html",
+        "image": "assets/images/governance-as-code-hero.png",
+        "readTime": "7 Min"
+    },
+    {
+        "title": "The A2A Protocol: Standardizing Handoffs Between Heterogeneous Agents",
+        "excerpt": "How the A2A standard allows multi-vendor agents to discover, negotiate, and delegate tasks safely.",
+        "publishDate": "2026-04-30",
+        "category": "Agentic AI",
+        "tags": "['A2A Protocol', 'Agents', 'Interoperability', 'Orchestration']",
+        "url": "articles/the-a2a-protocol.html",
+        "image": "assets/images/the-a2a-protocol-hero.png",
+        "readTime": "7 Min"
+    },
+    {
+        "title": "Semantic Caching at Scale: Vector Embeddings for 5x Latency Reduction",
+        "excerpt": "Moving beyond exact-match caching for repetitive zero-shot inference workloads. Learn how to architect semantic caching to slash latency and compute costs.",
+        "publishDate": "2026-04-20",
+        "category": "AI Infrastructure",
+        "tags": "['Semantic Caching', 'Latency', 'Vector Embeddings', 'Inference', 'GKE']",
+        "url": "articles/semantic-caching-at-scale.html",
+        "image": "assets/images/semantic-caching-at-scale-hero.png",
+        "readTime": "9 Min"
+    },
+    {
+        "title": "Portfolio-Based Budgeting for AI Initiatives",
+        "excerpt": "Moving away from siloed project funding based on projected margin impact. Discover how to transition from project-based to portfolio-based AI funding to optimize ROI and survive the pilot phase.",
+        "publishDate": "2026-04-19",
+        "category": "Strategy",
+        "tags": "['AI Strategy', 'Budgeting', 'ROI', 'CAIO', 'Portfolio Management']",
+        "url": "articles/portfolio-based-budgeting.html",
+        "image": "assets/images/portfolio-based-budgeting-hero.png",
+        "readTime": "10 Min"
+    },
+    {
+        "title": "Agent FinOps: Architecting Economic Constraints into LLM Routing",
+        "excerpt": "We built autonomous agents that can think, reason, and execute. Now we need to stop them from bankrupting us. Here is how to build economic constraints directly into your LangGraph loops.",
+        "publishDate": "2026-04-16",
+        "category": "Agentic AI",
+        "tags": "[finops, architecture, langgraph, agents]",
+        "url": "articles/agent-finops.html",
+        "image": "assets/images/agent-finops-hero.png",
+        "readTime": "6 Min"
+    },
+    {
+        "title": "Rack-Scale AI Design: The End of Component Scaling",
+        "excerpt": "We have hit the physical limits of what a single chip can do. The new unit of compute for AI infrastructure isn't the GPU; it's the fully integrated rack.",
+        "publishDate": "2026-04-15",
+        "category": "AI Infrastructure",
+        "tags": "[architecture, scaling, hardware, networking]",
+        "url": "articles/rack-scale-ai-design.html",
+        "image": "assets/images/rack-scale-ai-hero.png",
+        "readTime": "6 Min"
+    },
+    {
+        "title": "The P&L Mandate: Transitioning the CAIO from Pilots to Profitability",
+        "excerpt": "Boards demand hard financial ROI over soft metrics like 'hours saved'. This is the framework to shift your AI strategy toward measurable margin and revenue impact.",
+        "publishDate": "2026-04-13",
+        "category": "Strategy",
+        "tags": "[caio, roi, ai-strategy, leadership]",
+        "url": "articles/the-pl-mandate.html",
+        "image": "assets/images/the-pl-mandate-hero.png",
+        "readTime": "6 Min"
+    },
+    {
+        "title": "Hierarchical KV Caching: Scaling Context Beyond VRAM Limits",
+        "excerpt": "As context windows scale to a million tokens, the KV cache becomes too large for GPU memory. The solution is a multi-tiered cache that offloads data to CPU and NVMe without killing latency.",
+        "publishDate": "2026-04-09",
+        "category": "AI Infrastructure",
+        "tags": "",
+        "url": "articles/hierarchical-kv-caching-vram-limits.html",
+        "image": "assets/images/kv_caching_hero.png",
+        "readTime": "10 Min"
+    },
+    {
+        "title": "The CAIO's First 100 Days: Beyond Pilot Purgatory",
+        "excerpt": "Moving from setting up the office to surviving the execution phase without failing ROI checks. A guide for the new Chief AI Officer.",
+        "publishDate": "2026-04-07",
+        "category": "Strategy",
+        "tags": "",
+        "url": "articles/caio-first-100-days-pilot-purgatory.html",
+        "image": "assets/images/caio_first_100_days_pop_art.png",
+        "readTime": "8 Min"
+    },
+    {
+        "title": "Building automated Evals: LLM-as-a-Judge for Plan Adherence",
+        "excerpt": "A hands-on tutorial using Google ADK and TypeScript to score agent workflows with custom eval rubrics.",
+        "publishDate": "2026-03-27",
+        "category": "AI Engineering",
+        "tags": "",
+        "url": "articles/llm-as-a-judge-plan-adherence.html",
+        "image": "assets/images/llm-as-a-judge-plan-adherence.png",
+        "readTime": "8 Min"
+    },
+    {
+        "title": "The Battle for Memory: PagedAttention vs RingAttention on Kubernetes",
+        "excerpt": "Comparing raw memory management strategies for infinite-context enterprise agents.",
+        "publishDate": "2026-03-25",
+        "category": "AI Infrastructure",
+        "tags": "",
+        "url": "articles/pagedattention-vs-ringattention.html",
+        "image": "assets/images/pagedattention-vs-ringattention.png",
+        "readTime": "8 Min"
+    },
+    {
+        "title": "Static Tests Are Dead: Simulation-Based Red Teaming for AI Agents",
+        "excerpt": "How to use an \"Adversary\" agent to stress-test your autonomous systems before they reach production.",
+        "publishDate": "2026-03-24",
+        "category": "AI Engineering",
+        "tags": "",
+        "url": "articles/simulation-based-red-teaming.html",
+        "image": "assets/images/simulation-based-red-teaming.png",
+        "readTime": "9 Min"
+    },
+    {
+        "title": "The Supervisor vs. Swarm Debate: Routing in Multi-Agent Systems",
+        "excerpt": "An organic, decentralized mesh of democratic agents reads brilliantly in an academic paper. But in enterprise production, democratic agents lead to infinite loops and massive API bills.",
+        "publishDate": "2026-03-24",
+        "category": "Agentic AI",
+        "tags": "",
+        "url": "articles/the-supervisor-vs-swarm-debate.html",
+        "image": "assets/images/the-supervisor-vs-swarm.png",
+        "readTime": "5 Min"
+    },
+    {
+        "title": "Deploying Agentic AI as a Service (AaaS)",
+        "excerpt": "Deep dive into deploying agentic ai as a service (aaas).",
+        "publishDate": "2026-03-21",
+        "category": "AI Infrastructure",
+        "tags": "",
+        "url": "articles/agentic-aaas.html",
+        "image": "assets/images/agentic-aaas.png",
+        "readTime": "15 Min"
+    },
+    {
+        "title": "GitOps for Multi-Agent Workflows",
+        "excerpt": "Deep dive into gitops for multi-agent workflows.",
+        "publishDate": "2026-03-17",
+        "category": "AI Engineering",
+        "tags": "",
+        "url": "articles/gitops-agentic.html",
+        "image": "assets/images/gitops-agentic.png",
+        "readTime": "10 Min"
+    },
+    {
+        "title": "Beyond Vibe-Checks: Trajectory Evaluation & Synthetic Adversaries",
+        "excerpt": "Is your agent actually reasoning, or just lucky? Discover why trajectory analysis and synthetic red-teaming are the only ways to build production-grade autonomous systems.",
+        "publishDate": "2026-03-11",
+        "category": "AI Infrastructure",
+        "tags": "[AI Agents, Evaluation, LLM-as-a-Judge, Synthetic Data, GCP]",
+        "url": "articles/agent-trajectory-evaluation-synthetic-adversaries.html",
+        "image": "assets/images/agent-trajectory-evaluation.png",
+        "readTime": "9 Min"
+    },
+    {
+        "title": "Governance: The \"Human in the Loop\" Fallacy",
+        "excerpt": "Humans cannot keep pace with AI outputs at scale. Here is why enterprise growth relies heavily on Constitutional AI, rather than just throwing more human reviewers at the problem.",
+        "publishDate": "2026-03-02",
+        "category": "Strategy",
+        "tags": "",
+        "url": "articles/governance-human-in-the-loop-fallacy.html",
+        "image": "assets/images/governance-human-in-the-loop-fallacy.png",
+        "readTime": "10 Min"
+    },
+    {
+        "title": "Stateful Agents on K8s: Redis is Your Bottleneck, Not the Vector DB",
+        "excerpt": "Agents are stateless. Their memory is not. Scaling the LLM reasoning loop is trivial compared to solving the transactional concurrency of agent memory on Kubernetes.",
+        "publishDate": "2026-02-25",
+        "category": "AI Infrastructure",
+        "tags": "",
+        "url": "articles/stateful-agents-on-k8s.html",
+        "image": "assets/images/stateful-agents-on-k8s.png",
+        "readTime": "10 Min"
+    },
+    {
+        "title": "The Context Window ROI: Why RAG is a Tax on Reasoning",
+        "excerpt": "At $5 per million tokens with Gemini 2.5 Pro, the context window is no longer a scarcity. It is an asset class. It is time to rethink the true cost of RAG pipelines.",
+        "publishDate": "2026-02-23",
+        "category": "Strategy",
+        "tags": "",
+        "url": "articles/the-context-window-roi.html",
+        "image": "assets/images/the-context-window-roi.png",
+        "readTime": "10 Min"
+    },
+    {
+        "title": "The Storage Wall: Why Your GPUs are Waiting on GCS",
+        "excerpt": "Buying expensive GPUs to wait on cheap storage is an operational failure. We break down the math of 'Badput' and why high-performance I/O is actually a discount.",
+        "publishDate": "2026-02-13",
+        "category": "AI Engineering",
+        "tags": "",
+        "url": "articles/cloud-storage-io-bottlenecks.html",
+        "image": "assets/images/cloud-storage-io-bottlenecks.png",
+        "readTime": "4 Min"
+    },
+    {
+        "title": "The Build vs Buy Trap for Foundational Models",
+        "excerpt": "You are not Google. Your moat is your data, not your ability to pre-train Llama-4. We dissect the math of architecture parity and the rise of Outcome-as-a-Service.",
+        "publishDate": "2026-02-11",
+        "category": "Strategy",
+        "tags": "",
+        "url": "articles/build-vs-buy-foundational-models.html",
+        "image": "assets/images/build-vs-buy-foundation.png",
+        "readTime": "4 Min"
+    },
+    {
+        "title": "Why AI Pilots Fail: The 80% Stat",
+        "excerpt": "Most enterprise AI fails not because of the model, but because of the 'Last Mile' integration costs. We breakdown the hidden latency budget of RAG.",
+        "publishDate": "2026-02-02",
+        "category": "Strategy",
+        "tags": "",
+        "url": "articles/why-ai-pilots-fail-80-percent-stat.html",
+        "image": "assets/images/ai_pilot_failure_valley_1769265101000.png",
+        "readTime": "3 Min"
+    },
+    {
+        "title": "MCP: The End of the API Wrapper",
+        "excerpt": "We analyze the JSON-RPC internals of the Model Context Protocol (MCP) and why the 'Context Exchange' architecture renders traditional integration code obsolete.",
+        "publishDate": "2026-01-08",
+        "category": "Agentic AI",
+        "tags": "",
+        "url": "articles/model-context-protocol-end-of-api-wrapper.html",
+        "image": "assets/images/mcp_telegraph_exchange_1769265030156.png",
+        "readTime": "2 Min"
+    },
+    {
+        "title": "The Reliability Tax: Why Cheap GPUs Cost More",
+        "excerpt": "In the Llama 3 training run, Meta experienced 419 failures in 54 days. This post breaks down the unit economics of 'Badput' - the compute time lost to crashes - and why reliability is the only deflationary force in AI.",
+        "publishDate": "2026-01-05",
+        "category": "Strategy",
+        "tags": "",
+        "url": "articles/the-reliability-tax-why-cheap-gpus-cost-more.html",
+        "image": "assets/images/reliability_tax_scale_1769264919484.png",
+        "readTime": "4 Min"
+    },
+    {
+        "title": "The theory behind Technical Debt",
+        "excerpt": "Technical debt is not new, This weekend I went down the trail to read-up on its impact due to the increased throughput of code generation thanks to AI. Turns out AI code generation is a double-edged sword. Lightning-fast code creation can mask underlying architectural flaws, poor naming, and inadequate testing. Often creating more of the uncoordinated code.The right approach? Thoughtful AI integration that learns from existing code-bases, not blindly generating new code.",
+        "publishDate": "2025-10-05",
+        "category": "AI Infrastructure",
+        "tags": "",
+        "url": "articles/theory-behind-technical-debt.html",
+        "image": "assets/images/technical-debt-sandcastle.png",
+        "readTime": "6 Min"
+    }
+]

@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP: The End of the API Wrapper - Justyn Green</title>
+    <meta name="description" content="We analyze the JSON-RPC internals of the Model Context Protocol (MCP) and why the 'Context Exchange' architecture renders traditional integration code obsolete.">
+
+    <!-- Core Styling -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Code Highlight Themes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        .article-body {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 24px;
+        }
+
+        .article-body h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin: 40px 0 16px;
+            color: var(--neon-cyan);
+        }
+
+        .article-body h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin: 24px 0 12px;
+            color: var(--text-main);
+        }
+
+        .article-body p {
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .article-body ul, .article-body ol {
+            margin-bottom: 32px;
+            padding-left: 24px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .article-body li {
+            margin-bottom: 8px;
+        }
+
+        .figure-block {
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            text-align: center;
+        }
+
+        .figure-block img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .figure-block caption {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+        }
+
+        .cta-box {
+            margin: 60px 0;
+            padding: 32px;
+            border-left: 4px solid var(--neon-purple);
+            background: rgba(168, 85, 247, 0.05);
+            border-radius: 0 16px 16px 0;
+        }
+
+        .cta-box h4 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--neon-purple);
+            margin-bottom: 12px;
+        }
+
+        /* Code block custom container styling */
+        pre {
+            margin: 32px 0;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            background: #0d0c15 !important;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        code {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+        }
+
+        .article-body > p > code, .article-body li > code {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+        }
+
+        /* Takeaway card layout */
+        .takeaway-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 40px 0;
+        }
+
+        .premium-badge {
+            display: inline-block;
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--neon-cyan);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .takeaway-card ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+
+        .takeaway-card li {
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .takeaway-card li strong {
+            color: var(--neon-cyan);
+        }
+
+        /* Blockquote Styling */
+        blockquote {
+            border-left: 4px solid var(--neon-purple);
+            padding-left: 20px;
+            margin: 32px 0;
+            font-style: italic;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        /* Mermaid diagram wrapper */
+        .mermaid {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        /* Math formula formatting */
+        .math-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 32px 0;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            color: var(--neon-cyan);
+            overflow-x: auto;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <!-- Ambient Soft Glow -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <!-- Navigation -->
+    <header class="navbar" style="background: rgba(7,6,12,0.9);">
+        <div class="logo"><a href="../index.html" style="color: inherit; text-decoration: none;">JUSTYN GREEN</a></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html#whitepapers">Library</a></li>
+                <li><a href="../index.html#visuals">Visuals</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="article-body">
+        <h1 style="font-family: var(--font-display); font-size: 3rem; line-height: 1.2; margin-bottom: 16px;">
+            MCP: The End of the API Wrapper
+        </h1>
+        <div style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 32px; display: flex; gap: 20px;">
+            <span>📅 2026-01-08</span>
+            <span>🏷️ Agentic AI</span>
+            <span>⏱️ 2 Min Read</span>
+        </div>
+        <p style="font-size: 1.2rem; color: var(--text-main); margin-bottom: 40px;">
+            We analyze the JSON-RPC internals of the Model Context Protocol (MCP) and why the 'Context Exchange' architecture renders traditional integration code obsolete.
+        </p>
+
+        <p>Here is the dirty secret for most of the AI agents I built in 2025: 80% of the code was "glue."</p>
+<p>Every time I wanted the agent to touch a new system, I had to write a Python function, wrap the API, perform OAuth, and manually construct a prompt describing the schema.</p>
+<ul>
+<li>"Write a wrapper for the Linear API."</li>
+<li>"Write a wrapper for the Postgres query."</li>
+</ul>
+<p>It was brittle. If Linear changed their API, the agent broke. If the LLM hallucinated a parameter, the function crashed.</p>
+<h2>MCP: The SQL for Context</h2>
+<p>The <strong>Model Context Protocol (MCP)</strong> changes the paradigm. Instead of the Agent "learning" the API, the System "exposes" its context.</p>
+<p>It is an open standard (JSON-RPC 2.0 based) that decouples the <strong>Model</strong> from the <strong>Data Source</strong>.</p>
+<h3>The Architecture: Client-Host-Server</h3>
+<p>MCP operates on a strict topology:</p>
+<ol>
+<li><strong>MCP Server:</strong> A lightweight process (local or remote) that implements the spec. It exposes <code>resources</code>, <code>tools</code>, and <code>prompts</code>.</li>
+<li><strong>MCP Host:</strong> The application running the LLM (e.g., Claude Desktop, Zed IDE, or your custom Agent).</li>
+<li><strong>MCP Client:</strong> The protocol layer that connects Host to Server.</li>
+</ol>
+<h3>The Protocol Internals</h3>
+<p>Under the hood, it’s not magic; it’s just <strong>JSON-RPC</strong>.</p>
+<p>When an Host connects to a Server, it sends a <code>initialize</code> handshake. The Server responds with its capabilities.</p>
+<h4>1. Resources: <code>resources/list</code> & <code>resources/read</code></h4>
+<p>Resources are passive data (files, logs, database rows).</p>
+<ul>
+<li><strong>Old Way:</strong> You fetch the data, format it as text, and paste it into the prompt.</li>
+<li><strong>MCP Approach:</strong> The Server exposes a URI schema (e.g., <code>postgres://db/table</code>). The Agent "sees" this resource. When it needs it, it calls <code>resources/read</code>.</li>
+</ul>
+<h4>2. Tools: <code>tools/list</code> & <code>tools/call</code></h4>
+<p>Tools are executable functions.</p>
+<ul>
+<li><strong>Old Way:</strong> You write a Python function and pass its docstring to OpenAI/Gemini function calling.</li>
+<li><strong>MCP Approach:</strong> The Server broadcasts its tools (e.g., <code>execute_sql_query</code>). The Host dynamically registers them. The LLM invokes them via the protocol.</li>
+</ul>
+<h3>Transport Layer: STDIO vs SSE</h3>
+<p>One of the smartest design choices in MCP is the transport layer support.</p>
+<ul>
+<li><strong>STDIO (Standard Input/Output):</strong> For local agents. The Host spawns the Server as a subprocess and talks over <code>stdin/stdout</code>. Zero networking overhead. Perfect for local dev tools (Git, Grep).</li>
+<li><strong>SSE (Server-Sent Events):</strong> For remote agents. The Server runs as a web service. The Host connects via HTTP/SSE for bidirectional streaming.</li>
+</ul>
+<h2>Security & The Human Approval Flow</h2>
+<p>The biggest risk with Agents is <strong>Side Effects</strong> (e.g., "Delete production database").</p>
+<p>MCP handles this with a native <strong>Sampling</strong> and <strong>Approval</strong> flow.</p>
+<p>Before executing a <code>tool/call</code>, the Host can intercept the JSON-RPC message and present it to the user: <em>"Agent wants to call <code>delete_user(id=5)</code>. Allow?"</em></p>
+<p>This capability is baked into the protocol.</p>
+<h2>Conclusion</h2>
+<p>We are moving from "API Integration" to "Context Exposure."</p>
+<p>The winning architecture for 2026 is not "One Giant Agent." It is a <strong>Federation of MCP Servers</strong>.</p>
+<ul>
+<li>A <code>finance-mcp-server</code>.</li>
+<li>A <code>production-logs-mcp-server</code>.</li>
+<li>A <code>codebase-mcp-server</code>.</li>
+</ul>
+<p>Your Agent simply connects to the servers it needs, like mounting a USB drive.</p>
+
+        <div style="margin-top: 60px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <a href="../index.html"><button class="btn-glow">Back to Library</button></a>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); margin-top: 80px;">
+        &copy; 2026 Justyn Green | Accelerated Architecture Hub
+    </footer>
+
+    <!-- Navigation Script -->
+    <script src="../assets/js/main.js"></script>
+    
+</body>
+
+</html>

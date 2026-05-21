@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploying Agentic AI as a Service (AaaS) - Justyn Green</title>
+    <meta name="description" content="Deep dive into deploying agentic ai as a service (aaas).">
+
+    <!-- Core Styling -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+    
+    <!-- Code Highlight Themes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/tokyo-night-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>hljs.highlightAll();</script>
+
+    <style>
+        .article-body {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 24px;
+        }
+
+        .article-body h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            margin: 40px 0 16px;
+            color: var(--neon-cyan);
+        }
+
+        .article-body h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            margin: 24px 0 12px;
+            color: var(--text-main);
+        }
+
+        .article-body p {
+            margin-bottom: 24px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .article-body ul, .article-body ol {
+            margin-bottom: 32px;
+            padding-left: 24px;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+
+        .article-body li {
+            margin-bottom: 8px;
+        }
+
+        .figure-block {
+            margin: 40px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.02);
+            text-align: center;
+        }
+
+        .figure-block img {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .figure-block caption {
+            display: block;
+            margin-top: 12px;
+            font-size: 0.9rem;
+            color: var(--neon-purple);
+        }
+
+        .cta-box {
+            margin: 60px 0;
+            padding: 32px;
+            border-left: 4px solid var(--neon-purple);
+            background: rgba(168, 85, 247, 0.05);
+            border-radius: 0 16px 16px 0;
+        }
+
+        .cta-box h4 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--neon-purple);
+            margin-bottom: 12px;
+        }
+
+        /* Code block custom container styling */
+        pre {
+            margin: 32px 0;
+            padding: 20px;
+            border-radius: 12px;
+            overflow-x: auto;
+            background: #0d0c15 !important;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        code {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+        }
+
+        .article-body > p > code, .article-body li > code {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            color: var(--neon-cyan);
+        }
+
+        /* Takeaway card layout */
+        .takeaway-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-left: 4px solid var(--neon-cyan);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 40px 0;
+        }
+
+        .premium-badge {
+            display: inline-block;
+            background: rgba(34, 211, 238, 0.15);
+            color: var(--neon-cyan);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+
+        .takeaway-card ul {
+            margin-bottom: 0;
+            padding-left: 20px;
+        }
+
+        .takeaway-card li {
+            color: var(--text-main);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .takeaway-card li strong {
+            color: var(--neon-cyan);
+        }
+
+        /* Blockquote Styling */
+        blockquote {
+            border-left: 4px solid var(--neon-purple);
+            padding-left: 20px;
+            margin: 32px 0;
+            font-style: italic;
+            color: var(--text-main);
+            font-size: 1.1rem;
+        }
+
+        /* Mermaid diagram wrapper */
+        .mermaid {
+            background: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        /* Math formula formatting */
+        .math-block {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 32px 0;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            color: var(--neon-cyan);
+            overflow-x: auto;
+        }
+    </style>
+    
+</head>
+
+<body>
+
+    <!-- Ambient Soft Glow -->
+    <div class="ambient-orb orb-1"></div>
+    <div class="ambient-orb orb-2"></div>
+
+    <!-- Navigation -->
+    <header class="navbar" style="background: rgba(7,6,12,0.9);">
+        <div class="logo"><a href="../index.html" style="color: inherit; text-decoration: none;">JUSTYN GREEN</a></div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="../index.html#whitepapers">Library</a></li>
+                <li><a href="../index.html#visuals">Visuals</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="article-body">
+        <h1 style="font-family: var(--font-display); font-size: 3rem; line-height: 1.2; margin-bottom: 16px;">
+            Deploying Agentic AI as a Service (AaaS)
+        </h1>
+        <div style="font-size: 0.95rem; color: var(--text-muted); margin-bottom: 32px; display: flex; gap: 20px;">
+            <span>📅 2026-03-21</span>
+            <span>🏷️ AI Infrastructure</span>
+            <span>⏱️ 15 Min Read</span>
+        </div>
+        <p style="font-size: 1.2rem; color: var(--text-main); margin-bottom: 40px;">
+            Deep dive into deploying agentic ai as a service (aaas).
+        </p>
+
+        <div class="takeaway-card">
+  <span class="premium-badge">Key Takeaways</span>
+  <ul>
+    <li><strong>Asynchronous Architecture is Mandatory:</strong> Agentic reasoning breaks traditional synchronous REST API limits. Event-driven architectures (like Cloud Pub/Sub) are required to queue tasks and decouple ingestion from execution.</li>
+    <li><strong>Externalize Agent Memory:</strong> Because Kubernetes pods are ephemeral, an agent's cognitive state must be externalized to durable storage (like Cloud SQL for context and GCS for artifacts) to survive container restarts.</li>
+    <li><strong>Strict Security Sandboxing:</strong> Agents generate and execute code autonomously. Running them requires robust isolation via tools like GKE Sandbox (gVisor) and granular Workload Identity to prevent internal network compromises.</li>
+    <li><strong>Implement Reasoning Circuit Breakers:</strong> To prevent agents from falling into costly, infinite logic loops, local guardrails must track execution steps and automatically disable failing tools after multiple failed attempts.</li>
+    <li><strong>Semantic Observability:</strong> Standard APM metrics are insufficient. Platform teams must log the entire reasoning graph and stream prompts/responses to data warehouses to analyze the actual logic and accuracy of agent decisions.</li>
+  </ul>
+</div>
+<p>Most of the early attempts to integrate Large Language Models into enterprise applications were treated like simple database queries. You wrapped a user prompt in a synchronous HTTP request, fired it at a remote endpoint, and waited uncomfortably while the network connection held open for a generic text string to trickle back. It felt familiar to us. It looked exactly like REST. It was also completely insufficient for what we are trying to build today.</p>
+<p>We have moved past simple text generation and auto-completion. We are now orchestrating autonomous entities powered by multi-modal giants. These agents are not just answering questions in a chat interface. They are writing fully functional code, executing shell scripts, opening pull requests on GitHub, and interacting directly with vendor APIs to remediate production alerts. When you start treating an AI model as an actor capable of multi-step reasoning, you realize very quickly that a traditional web server model completely breaks down.</p>
+<p>An agent is essentially a stateful background worker. It acts much more like a junior site reliability engineer or a tier-one support representative than it does a passive microservice. Hosting these digital employees requires a fundamental architectural reset. We are no longer exposing a stateless string generation function. We are deploying Agentic AI as a Service.</p>
+<p>This methodology requires treating the LLM not just as a text generator, but as the central processing unit for a non-deterministic operating system. Providing this as a reliable internal platform service demands rigorous engineering around asynchronous execution, memory persistence, strict identity boundaries, and circuit breakers designed specifically for logical reasoning loops.</p>
+<p>Let us break down exactly how you architect, secure, and deploy a fleet of pre-built autonomous agents.</p>
+<h2>Escaping the Synchronous Trap</h2>
+<p>Your first instinct might be to package your newly coded Python agent code into a generic container and push it to Cloud Run behind a standard API Gateway. A developer sends a JSON payload with a complex task like identifying the root cause of the memory leak in the billing service API.</p>
+<p>Here is the immediate problem with that approach. An agent uses a reasoning framework (like an observation thought loop) to break that generic task down into concrete steps. It looks at the system metrics, realizes it needs more context from the logs, queries Cloud Logging, analyzes the stack trace, and maybe even looks at recent commits in the Git repository. That entire investigative process could easily take three to five minutes.</p>
+<p>No sane API gateway configures a synchronous connection timeout for five minutes. Your client application will inevitably drop the connection, or your web load balancer will simply return a 504 Gateway Timeout, aggressively killing the agent process mid-thought and wasting the compute cycles entirely.</p>
+<p>Instead of fighting load balancers, we need to decouple ingestion entirely from execution. This means leaning heavily into robust, event-driven infrastructure.</p>
+<p>When a background system or a human needs an agent to perform a specific task, they absolutely do not call the agent directly. They publish a formatted message to a Cloud Pub/Sub topic. This topic serves as the durable ingestion buffer, holding the task definition safely regardless of downstream capacity.</p>
+<pre><code class="language-python"># Event publisher pattern for invoking an asynchronous autonomous agent
+import json
+from google.cloud import pubsub_v1
+
+publisher = pubsub_v1.PublisherClient()
+topic_path = publisher.topic_path("my-gcp-project", "security-remediation-tasks")
+
+task_payload = {
+    "task_id": "req-98765",
+    "objective": "Audit the overly permissive IAM roles on bucket 'financial-data' and propose a least-privilege terraform state update.",
+    "context": {"requester": "sec-ops-bot", "urgency": "high"}
+}
+
+future = publisher.publish(
+    topic_path,
+    data=json.dumps(task_payload).encode("utf-8")
+)
+print(f"Agent task successfully enqueued: {future.result()}")</code></pre>
+<p>The agent application itself runs as a subscriber listener to this Pub/Sub topic. You can run this seamlessly on Google Kubernetes Engine (GKE) using the Autopilot mode, effortlessly scaling the number of active agent pods based entirely on the Pub/Sub queue depth metric. When the queue spikes during a massive system incident, Kubernetes spins up twenty replicas of your agent container. Once the queue drains and the work completes, the cluster scales the pods back down to zero. You stop paying for idle digital workers instantly.</p>
+<h2>Externalizing the Working Memory</h2>
+<p>If you run your applications in Kubernetes, you fundamentally know that your pods are ephemeral by design. Specific nodes can be preempted at any moment for maintenance. If an autonomous agent is halfway through a complex, six-step software debugging process and the underlying pod restarts, relying on purely in-memory state means that specific agent wakes up with acute amnesia. It has zero idea what it just did seconds before the restart.</p>
+<p>An enterprise-grade platform requires highly durable, fault-tolerant memory.</p>
+<p>You must externalize the agent context window. Think of the active model context window as the agent temporary RAM, and Google Cloud Storage (GCS) alongside Cloud SQL as its persistent hard drive tier. Every time the agent makes a tool call, receives a database result, or formulates a logical thought, that textual delta must be written safely to external storage.</p>
+<p>Using a transactional database like Cloud SQL for PostgreSQL, you can leverage native JSONB columns to securely store the conversational thread logs and the intermediate scratchpad states.</p>
+<pre><code class="language-sql">-- Schema for durable agent memory tracking
+CREATE TABLE agent_sessions (
+    session_id UUID PRIMARY KEY,
+    agent_persona VARCHAR(50) NOT NULL,
+    status VARCHAR(20) NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    last_updated TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE agent_memory_blocks (
+    block_id UUID PRIMARY KEY,
+    session_id UUID REFERENCES agent_sessions(session_id),
+    turn_type VARCHAR(20) NOT NULL, -- 'thought', 'action', 'observation', 'response'
+    content JSONB NOT NULL,
+    sequence_number INT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);</code></pre>
+<p>When the Kubernetes agent pod spins up to process an incoming queue message, its very first action is querying this PostgreSQL database. It loads the known <code>agent_memory_blocks</code> directly into the context window, perfectly reconstructing its exact mental state before cleanly resuming the task. Once the final task concludes, the payload is dispatched via an HTTP webhook back to the initial requesting system, and the session status is permanently marked as complete in the database.</p>
+<p>For massive artifact generation tasks (like an agent writing a 500-line multi-file database migration script), you should heavily utilize GCS instead of the database. You absolutely do not stuff five megabytes of generated code into a Postgres row. You write the raw file objects out to <code>gs://agent-artifacts-bucket/<session_id>/output.py</code> and subsequently pass the URI reference in your database state. This critical pattern prevents relational context bloat and deeply respects standard storage limits.</p>
+<h2>The Infrastructure of Reasoning</h2>
+<p>Let us get into the actual cluster mechanics running these systems.</p>
+<p>While the massive mathematical heavy lifting of inference happens remotely via managed API when querying the llm, the local Kubernetes agent container is the maestro. It actively manages the thought loop, formats the JSON tool specifications, parses the messy text responses, and physically executes local helper code if fundamentally necessary.</p>
+<p>Many early practitioners make a critical operational error here. They enthusiastically run the agent in the exact same network perimeter and identity scope as their trusted internal core microservices. This is terrifying from a security perspective. You are explicitly granting a non-deterministic algorithm unfettered access to your internal network.</p>
+<p>An agent that generates and executes novel Python code to solve a dynamic problem is literally performing arbitrary code execution by its very design. You have to severely isolate this capability.</p>
+<p>GKE Sandbox is literally built exactly for this risk scenario. By deploying your specific agent pods utilizing gVisor runtime configuration, you intercept and heavily filter all underlying system calls to the virtual host kernel. If the newly spawned agent accidentally (or maliciously) writes a local shell script that attempts to traverse the node filesystem hardware or break out of its container cage, gVisor stops the process cold.</p>
+<p>We must strictly bind internal IAM roles using advanced Workload Identity policies. You must never use broad, default compute service accounts. If you have a specific agent designed specifically to query BigQuery tables and summarize daily marketing data, that agent Kubernetes Service Account should exclusively map to a Google Cloud Service Account that only holds <code>roles/bigquery.dataViewer</code> tightly bound on specific table datasets.</p>
+<p>Here is what that restrictive deployment model looks like in practice. Notice the tight perimeter boundaries and the explicit security annotations.</p>
+<pre><code class="language-yaml">apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: marketing-analyzer-agent
+  namespace: isolated-agents
+  annotations:
+    iam.gke.io/gcp-service-account: 'agent-mktg-sa@my-gcp-project.iam.gserviceaccount.com'
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: marketing-analyzer-agent
+  namespace: isolated-agents
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: marketing-agent
+  template:
+    metadata:
+      labels:
+        app: marketing-agent
+    spec:
+      serviceAccountName: marketing-analyzer-agent
+      runtimeClassName: gvisor # Crucial for kernel sandbox isolation
+      containers:
+        - name: agent-worker
+          image: gcr.io/my-gcp-project/marketing-agent:v2.1.0
+          env:
+            - name: PROJECT_ID
+              value: 'my-gcp-project'
+            - name: MEMORY_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: db-credentials
+                  key: host
+          resources:
+            requests:
+              cpu: '500m'
+              memory: '1Gi'
+            limits:
+              cpu: '1000m'
+              memory: '2Gi'</code></pre>
+<p>This strict configuration uniquely ensures the agent operates entirely inside an isolated conceptual sandbox. It can subsequently communicate via Workload Identity without ever locally downloading static key files, and it is severely restricted mathematically in what actual internal cloud resources it can view or mutate.</p>
+<p>If you are augmenting these models with deep semantic search against massive local enterprise datasets, you likely are routing specific embedding retrieval tasks directly to local TPUs on GKE. Rather than aggressively pushing terabytes of proprietary embeddings out to external managed services constantly, deploying highly optimized, smaller embedding models on regional Cloud TPUs allows for dramatically lower latency during the agent retrieval phase. The container calls Vertex AI for the primary Gemini brain, but fetches specialized local vectors from your custom TPU pods via gRPC.</p>
+<h2>Engineering the Circuit Breaker</h2>
+<p>The most frustrating operational reality of actively deploying LLM agents is desperately dealing with infinite reasoning loops.</p>
+<p>Large LLMs are remarkably capable, but occasionally, an unsupervised agent will completely fall into a cognitive death spiral. It will decide to call an arbitrary API, receive an unexpected syntax error, try the exact same identical API call again, receive the same error, and blindly repeat this cycle indefinitely until it fully drains your organizational billing account or aggressively hits a hard system limit quota.</p>
+<p>We have to build resilient circuit breakers for automated cognition.</p>
+<p>In a traditional microservice environment, you utilize service meshes like Istio to easily implement basic circuit breaking based almost exclusively on error rates and network latency spikes. With autonomous agents, we instead track the raw reasoning steps and immediately flag repeating action signatures.</p>
+<p>You must mathematically enforce a maximum step count execution limit per assigned task. For a typical diagnostic root cause agent, if it has not factually found the core answer in fifteen separate tool executions, it is fundamentally lost. It is always better to proactively fail safely and gracefully return system control to a human engineer than it is to burn expensive compute cycles indefinitely on wrong answers.</p>
+<p>You additionally need dynamic backoff capabilities strategically placed within the agent local tool execution wrapper code. If the agent repeatedly attempts to execute a basic database query tool and continuously receives a SQL syntax error, the Python tool wrapper should aggressively intercept this behavior. It provides the helpful error text back to the LLM context (so the model can hopefully learn and fix the syntax query), but it must secretly increment a hidden failure counter for that specific tool action. If the agent foolishly fails three consecutive times on the exact same database tool, the system wrapper forcibly disables that precise tool for the remainder of the session. It then abruptly injects a highly prioritized system prompt directive indicating that the tool is permanently offline.</p>
+<pre><code class="language-python"># A robust local circuit breaker for LLM tool execution handling
+class ToolCircuitBreaker:
+    def __init__(self, max_failures=3):
+        self.failure_counts = {}
+        self.max_failures = max_failures
+        self.disabled_tools = set()
+
+    def execute_tool(self, tool_name, execute_fn, *args, **kwargs):
+        if tool_name in self.disabled_tools:
+            return f"SYSTEM FATAL ERROR: Tool '{tool_name}' is currently disabled administratively due to excessive repeated failures."
+
+        try:
+            result = execute_fn(*args, **kwargs)
+            # Reset the counter completely on successful execution
+            self.failure_counts[tool_name] = 0
+            return result
+        except Exception as e:
+            count = self.failure_counts.get(tool_name, 0) + 1
+            self.failure_counts[tool_name] = count
+
+            if count &gt;= self.max_failures:
+                self.disabled_tools.add(tool_name)
+                return f"SYSTEM FATAL ERROR: Tool execution physically failed. Critically, you have completely exceeded the max retries allowed for this specific tool. It is now completely locked and disabled."
+
+            return f"Observation Warning: Tool returned an error: {str(e)}. Please correct your underlying arguments and try again."</code></pre>
+<p>By intentionally injecting these firm guardrails directly into the local execution perimeter environment, you heavily protect both the broader enterprise system and the underlying model deployment from pathological looping behavior.</p>
+<h2>Observability and Semantic Tracing</h2>
+<p>When a web application drops a database connection, you immediately check the connection pool metrics and the external network latency dashboards. When a digital agent fails a massive task, standard monitoring metrics tell you absolutely nothing useful. A flawless 200 OK from the remote Vertex API simply means Gemini successfully generated tokens of text. It does not mean the text was factually correct, logically sound, or broadly safe.</p>
+<p>Standard observability platforms deeply rely on raw performance data. Agentic infrastructure fundamentally requires complex semantic observability.</p>
+<p>You need to thoughtfully log the entire execution graph tree. Every new asynchronous task starts a master trace record. Every subsequent call to the LLM model is tracked as a span. Every local tool execution is carefully nested as a sub-span. We eagerly send this raw trace data metadata to Google Cloud Trace for quick visual inspection, but we concurrently steam the massive payload text strings (the actual prompts and generated completions) directly to BigQuery tables for intensive offline analysis.</p>
+<p>This specific data pipeline reliably allows your platform teams to accurately answer deeply complex operational questions. Which specific integrated tool has the highest functional failure rate across all agent sessions this month? When specialized agents attempt to use the GitHub REST API, how often are they formatting the JSON mutation body incorrectly? How does model caching in Vertex AI impact the average latency of our billing review agents?</p>
+<p>By actively analyzing the semantic reasoning logs directly inside BigQuery, human engineers can easily identify massive systemic gaps in the agent core system prompt instructions. If diagnostic agents continuously attempt to query the old deprecated logging endpoint instead of the newly unified platform telemetry dataset, you update the centralized master system prompt safely stored in GCS. You roll out the new descriptive prompt version identically to how you would roll out a Kubernetes configuration map update. Subsequently, every single newly deployed agent instantiation automatically inherits the critically updated operational context without requiring code changes.</p>
+<h2>Handing Off the Baton</h2>
+<p>Engineers often view automation through a rigid lens of perfectly predictable pipelines. Building Agentic AI platforms forces a radical shift in that baseline perspective. It truly is not about building complex logic gates or entirely eliminating the human engineer. It primarily is about intelligently creating highly specialized, securely compartmentalized digital workers that willingly handle the mundane heavy lifting of raw data processing, infinite log reading, and repetitive system iteration.</p>
+<p>These sophisticated agents act natively as asynchronous system peers. You securely push highly detailed tasks directly to their messaging queues. They pull their local configuration state, rigorously establish their strict security sandbox, invoke the massive reasoning processing power of Gemini models hosted over Vertex AI, aggressively maintain their own transactional database of session memories, and eventually, they return highly contextualized operational answers via simple webhooks.</p>
+<p>This intentional architecture ruthlessly protects your critical production environment by relying aggressively on strict IAM identity boundaries, Workload Identity federation, gVisor container isolation, and explicit loop execution limits. It fully embraces the inherently non-deterministic reality of large language models rather than foolishly fighting it.</p>
+<p>You finally must stop treating deep AI models as a magical single synchronous endpoint layer. You must begin treating intelligent capabilities as a deeply asynchronous, highly reliable distributed backend service. When platform teams meticulously design for inevitable failure, construct robust logic circuit breakers, and enforce aggressive least-privilege identity constraints, you successfully transform these theoretical model capabilities into incredibly secure, undeniably reliable enterprise infrastructure code.</p>
+
+        <div style="margin-top: 60px; padding-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.1);">
+            <a href="../index.html"><button class="btn-glow">Back to Library</button></a>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-muted); margin-top: 80px;">
+        &copy; 2026 Justyn Green | Accelerated Architecture Hub
+    </footer>
+
+    <!-- Navigation Script -->
+    <script src="../assets/js/main.js"></script>
+    
+</body>
+
+</html>
