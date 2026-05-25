@@ -2,49 +2,56 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log('GreenJustyn Technical Knowledge Graph Init.');
 
     // ==========================================
-    // Interactive Media Queue Switching (Cinema)
+    // Interactive Media Queue Switching (Cinema & YouTube Player)
     // ==========================================
     const queueItems = document.querySelectorAll('.queue-item');
     const mainThumb = document.getElementById('mainVideoThumb');
-    const mainTitle = document.getElementById('mainVideoTitle');
+    const playOverlay = document.getElementById('playOverlay');
+    const ytPlayer = document.getElementById('ytPlayer');
 
-    const videoData = {
-        1: {
-            thumb: 'assets/images/cinema-thumb.png',
-            title: 'Edge Compute Visualization',
-        },
-        2: {
-            thumb: 'assets/images/hero-art.png',
-            title: 'Git-Based Server Optimization',
-        }
-    };
+    function playVideo(videoId) {
+        if (!ytPlayer) return;
+        
+        // Set YouTube embed source with autoplay
+        ytPlayer.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`;
+        
+        // Transition to display iframe and hide the static thumbnail/overlay
+        mainThumb.style.display = 'none';
+        if (playOverlay) playOverlay.style.display = 'none';
+        ytPlayer.style.display = 'block';
+    }
 
     queueItems.forEach(item => {
         item.addEventListener('click', () => {
-            // Update active state
+            // Update active class state
             queueItems.forEach(i => i.classList.remove('active'));
             item.classList.add('active');
 
-            // Get data ID
-            const id = item.getAttribute('data-video-id');
-            if (videoData[id]) {
-                // Fade animation for smooth viewing
+            // Get video ID from data-video-id
+            const videoId = item.getAttribute('data-video-id');
+            
+            // If iframe is already playing, automatically switch and play the new one
+            if (ytPlayer && ytPlayer.style.display === 'block') {
+                playVideo(videoId);
+            } else {
+                // Otherwise, update the placeholder image smoothly with fade effect
                 mainThumb.style.opacity = '0';
-                
                 setTimeout(() => {
-                    mainThumb.src = videoData[id].thumb;
-                    mainTitle.innerText = videoData[id].title;
+                    mainThumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
                     mainThumb.style.opacity = '0.8';
                 }, 300);
             }
         });
     });
 
-    // Simple Overlay Interactive Reaction
-    const playOverlay = document.querySelector('.play-overlay');
+    // Trigger YouTube embed when clicking on the central play button overlay
     if (playOverlay) {
         playOverlay.addEventListener('click', () => {
-            alert('Playing instructional technology review snippet.');
+            const activeItem = document.querySelector('.queue-item.active');
+            if (activeItem) {
+                const videoId = activeItem.getAttribute('data-video-id');
+                playVideo(videoId);
+            }
         });
     }
 

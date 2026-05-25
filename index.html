@@ -32,12 +32,13 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h1>Accelerated Google Cloud Tech &amp; Cloud Observations.</h1>
-                <p>A streamlined platform designed to distribute clear technical walkthroughs, automated Git architectures, and highly visual market knowledge.</p>
+                <h1>Cloud Tech, AI, and Strategic Observations.</h1>
+                <p>Accelerating enterprise and personal growth through architecture, automation, and strategy. One stop shop of
+                    information on AI and Cloud!</p>
                 <a href="#whitepapers"><button class="btn-glow" style="padding: 16px 40px; font-size: 1.1rem;">Read Latest Guide</button></a>
             </div>
             <div class="hero-image-container">
-                <img src="assets/images/cinema-thumb.png" alt="Futuristic Architecture Data Visualization">
+                <img src="assets/images/cinema-thumb.png" alt="Justyn Green">
             </div>
         </section>
 
@@ -73,8 +74,9 @@
             
             <div class="cinema-container">
                 <div class="video-player-wrapper">
+                    <iframe id="ytPlayer" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; display: none;" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     <img id="mainVideoThumb" class="placeholder-thumb" src="assets/images/cinema-thumb.png" alt="Visual guide playing">
-                    <div class="play-overlay">
+                    <div class="play-overlay" id="playOverlay">
                         <div class="play-icon"></div>
                     </div>
                 </div>
@@ -82,19 +84,35 @@
                 <div class="media-queue">
                     <h3 style="margin-bottom: 12px; font-family: 'Space Grotesk', sans-serif;">Media Catalog</h3>
                     
-                    <div class="queue-item active" data-video-id="1">
-                        <img class="queue-thumb" src="assets/images/cinema-thumb.png" alt="Visual overview">
+                    <div class="queue-item active" data-video-id="W0Bw-WzN7k0">
+                        <img class="queue-thumb" src="https://img.youtube.com/vi/W0Bw-WzN7k0/hqdefault.jpg" alt="Vertex AI Agent Builder">
                         <div class="queue-info">
-                            <h4 id="mainVideoTitle">Edge Compute Visualization</h4>
-                            <span>Overview: Data routing protocols</span>
+                            <h4 id="mainVideoTitle">Vertex AI Agent Builder</h4>
+                            <span>Overview: Headless AI Agents on GCP</span>
                         </div>
                     </div>
 
-                    <div class="queue-item" data-video-id="2">
-                        <img class="queue-thumb" src="assets/images/hero-art.png" alt="Pipeline dashboard">
+                    <div class="queue-item" data-video-id="K1u8lX71r0I">
+                        <img class="queue-thumb" src="https://img.youtube.com/vi/K1u8lX71r0I/hqdefault.jpg" alt="GitOps Pipeline Automation">
                         <div class="queue-info">
-                            <h4>Git-Based Server Optimization</h4>
-                            <span>Overview: Live pipeline builds</span>
+                            <h4>GitOps Pipeline Automation</h4>
+                            <span>Overview: CI/CD & Cloud Run</span>
+                        </div>
+                    </div>
+
+                    <div class="queue-item" data-video-id="j_0L-aC7m2o">
+                        <img class="queue-thumb" src="https://img.youtube.com/vi/j_0L-aC7m2o/hqdefault.jpg" alt="GenAI Infrastructure Scaling">
+                        <div class="queue-info">
+                            <h4>GenAI Infrastructure Scaling</h4>
+                            <span>Overview: GKE & TPU Pods Architecture</span>
+                        </div>
+                    </div>
+
+                    <div class="queue-item" data-video-id="53y9G_6U3a0">
+                        <img class="queue-thumb" src="https://img.youtube.com/vi/53y9G_6U3a0/hqdefault.jpg" alt="Hybrid Cloud & Anthos">
+                        <div class="queue-info">
+                            <h4>Hybrid Cloud & Anthos</h4>
+                            <span>Overview: Multi-Cluster GKE Mesh</span>
                         </div>
                     </div>
                 </div>
@@ -103,7 +121,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Justyn Green. Accelerated knowledge base via Cloudflare DNS, minimal operational overhead.</p>
+        <p>&copy; 2026 Justyn Green. Articles & Videos via GitHub, Google Gemini, & Cloudflare DNS.</p>
     </footer>
 
     <!-- Navigation Script -->
