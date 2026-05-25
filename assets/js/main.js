@@ -30,17 +30,8 @@ document.addEventListener('DOMContentLoaded', () => {
             // Get video ID from data-video-id
             const videoId = item.getAttribute('data-video-id');
             
-            // If iframe is already playing, automatically switch and play the new one
-            if (ytPlayer && ytPlayer.style.display === 'block') {
-                playVideo(videoId);
-            } else {
-                // Otherwise, update the placeholder image smoothly with fade effect
-                mainThumb.style.opacity = '0';
-                setTimeout(() => {
-                    mainThumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-                    mainThumb.style.opacity = '0.8';
-                }, 300);
-            }
+            // Immediately launch and autoplay the clicked video!
+            playVideo(videoId);
         });
     });
 
