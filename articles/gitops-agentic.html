@@ -239,7 +239,7 @@
 <p>When you change a system prompt, you modify the entire runtime environment for that persona. Removing a single constraint can completely alter how an agent serializes json payloads or invokes external tooling. We fix this by defining the core logic declaratively. We pull prompts out of application logic and structure them in YAML.</p>
 <p>Imagine a multi-agent framework managing your data ingestion pipeline. You have a router, an extraction agent, and a formatting agent. Let us look at how the extraction agent is defined in version control.</p>
 <pre><code class="language-yaml"># /agents/extractor.yaml
-apiVersion: ops.rajatpandit.com/v1alpha1
+apiVersion: ops.greenjustyn.com/v1alpha1
 kind: AgentPersona
 metadata:
   name: document-extraction-agent
